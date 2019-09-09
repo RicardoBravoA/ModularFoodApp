@@ -27,7 +27,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 style="@style/TextViewTitle"
-                tools:text="@string/app_name"
                 app:layout_constraintEnd_toStartOf="@+id/tvRating"
                 app:layout_constraintStart_toEndOf="@+id/ivRestaurant"
                 app:layout_constraintTop_toTopOf="parent"/>
