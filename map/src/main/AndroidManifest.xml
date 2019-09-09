@@ -1,0 +1,23 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:dist="http://schemas.android.com/apk/distribution"
+          package="com.rba.map">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application>
+        <activity
+                android:name=".MainActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+    </application>
+
+    <dist:module
+            dist:onDemand="true"
+            dist:instant="false"
+            dist:title="@string/title_map">
+        <dist:fusing dist:include="true"/>
+    </dist:module>
+
+</manifest>
+
