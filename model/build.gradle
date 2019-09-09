@@ -30,5 +30,5 @@ dependencies {
 
     implementation "${SupportLibraries.appcompat}"
     implementation "${SupportLibraries.coreKtx}"
-    implementation "${WorkaroundLibraries.artifactoryLibrary}"
+    implementation "${NetworkingLibraries.artifactoryLibrary}"
 }

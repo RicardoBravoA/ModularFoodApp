@@ -114,8 +114,6 @@ class MainActivity : BaseMapActivity() {
                 startActivity(intent)
             }
 
-            is MainViewModel.UiViewModel.ShowFailure -> clData.snackbar(model.defaultErrorModel.message)
-
             is MainViewModel.UiViewModel.Refresh -> {
                 //mainViewModel.getData("40.6594835", "-74.023076")
                 if (isGPS) getData()

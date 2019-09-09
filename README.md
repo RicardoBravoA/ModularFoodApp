@@ -81,6 +81,18 @@ El proyecto funciona desde **Android 5+ (API 21+)**<br>
   <img src="image/img8.jpg" alt="Detail" width="303" height="640"/><br>
 </p>
 
+## Unit Test
+
+Se hicieron tests para los módulos **mapdata** y **detaildata**, teniendo una cobertura de 100% en ambos módulos
+
+<p align="center">
+  <img src="image/img9.png" alt="Move restaurants list" width="359" height="204"/><br>
+</p>
+
+## APK
+
+Se encuentra [aquí](apk/)
+
   <br>  
   <br>  
 *Happy coding!*

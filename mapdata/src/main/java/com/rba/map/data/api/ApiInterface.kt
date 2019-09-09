@@ -1,7 +1,8 @@
 package com.rba.map.data.api
 
 import com.rba.model.entity.response.GeoCodeResponse
-import retrofit2.Call
+import kotlinx.coroutines.Deferred
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
@@ -13,6 +14,6 @@ interface ApiInterface {
     fun restaurantList(
         @Query("lat") latitude: String,
         @Query("lon") longitude: String
-    ): Call<GeoCodeResponse>
+    ): Deferred<Response<GeoCodeResponse>>
 
 }

@@ -50,8 +50,6 @@ class DetailActivity : AppCompatActivity() {
                     clData.snackbar(model.errorModel.message!!)
             }
 
-            is DetailViewModel.UiViewModel.ShowFailure -> clData.snackbar(model.defaultErrorModel.message)
-
             is DetailViewModel.UiViewModel.Refresh -> {
                 detailViewModel.getData(id!!)
 

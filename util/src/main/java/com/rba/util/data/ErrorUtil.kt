@@ -1,8 +1,10 @@
 package com.rba.util.data
 
+import com.rba.model.model.ErrorModel
+
 object ErrorUtil {
 
-    fun errorHandler(error: Throwable): com.rba.model.model.DefaultErrorModel {
+    fun errorHandler(error: Throwable): ErrorModel {
 
         val errorException: RetrofitException =
             if (error is RetrofitException) {
@@ -12,9 +14,9 @@ object ErrorUtil {
             }
 
         return when (errorException.kind) {
-            RetrofitException.Kind.HTTP -> errorException.getErrorBodyAs(com.rba.model.model.DefaultErrorModel::class.java)!!
-            RetrofitException.Kind.NETWORK -> com.rba.model.model.DefaultErrorModel()
-            else -> com.rba.model.model.DefaultErrorModel()
+            RetrofitException.Kind.HTTP -> errorException.getErrorBodyAs(ErrorModel::class.java)!!
+            RetrofitException.Kind.NETWORK -> ErrorModel()
+            else -> ErrorModel(0, "", "Ocurrió un error")
         }
 
     }
