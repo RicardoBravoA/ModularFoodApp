@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -33,7 +34,6 @@ abstract class BaseMapActivity : AppCompatActivity(), OnMapReadyCallback, Google
     var location: Location? = null
     private val REQUEST_CODE = 1000
     var isGPS = false
-    private var show = false
     var map: GoogleMap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +49,13 @@ abstract class BaseMapActivity : AppCompatActivity(), OnMapReadyCallback, Google
             locationCallback()
             validatePermission()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        buildLocationRequest()
+        locationCallback()
+        //validatePermission()
     }
 
     override fun onRequestPermissionsResult(
@@ -72,6 +79,7 @@ abstract class BaseMapActivity : AppCompatActivity(), OnMapReadyCallback, Google
                 isGPS = isGPSEnable
             }
         })
+        validateUbication()
     }
 
     private fun checkPermission(): Boolean {
@@ -88,23 +96,25 @@ abstract class BaseMapActivity : AppCompatActivity(), OnMapReadyCallback, Google
         locationRequest.smallestDisplacement = 10f
     }
 
-    override fun onResume() {
-        super.onResume()
-        buildLocationRequest()
-        locationCallback()
-        validatePermission()
-    }
-
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        if (location != null) {
-            moveCamera(LatLng(location!!.latitude, location!!.longitude))
-        }
+
         map?.setOnMarkerClickListener(this)
         map?.setOnCameraIdleListener(this)
 
+        validateUbication()
+
         if (checkPermission()) {
             map?.isMyLocationEnabled = true
+        }
+    }
+
+    private fun validateUbication() {
+        if (checkPermission() && map?.isMyLocationEnabled == false) {
+            map?.isMyLocationEnabled = true
+        }
+        if (location != null) {
+            moveCamera(LatLng(location!!.latitude, location!!.longitude))
         }
     }
 
@@ -135,8 +145,7 @@ abstract class BaseMapActivity : AppCompatActivity(), OnMapReadyCallback, Google
         ) {
             requestPermission()
         } else {
-            if (!show) activateGPS()
-            show = true
+            activateGPS()
         }
 
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback(), Looper.myLooper())
@@ -154,6 +163,7 @@ abstract class BaseMapActivity : AppCompatActivity(), OnMapReadyCallback, Google
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == Constant.GPS) {
             isGPS = true
+            validatePermission()
         }
     }
 
